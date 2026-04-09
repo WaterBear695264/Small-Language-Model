@@ -6,42 +6,37 @@ newText = newText.replace(/\s\s+/g, ' ');
 newText = newText.replace(/[A-Z]/g, (match) => {
     return match.toLowerCase()
 })
-let newArr = []
 
-for(let i = 0; i < newText.length; i++){
+const createBookArray = () => {
+    let newArr = []
+    for(let i = 0; i < newText.length; i++){
     if(newText[i] === " "){
-        if(!newArr.includes(newText.substring(0, i))){
             newArr.push(newText.substring(0, i))
             newText = newText.substring(i+1)
             i = 0
-        }else{
-            newText = newText.substring(i+1)
-            i = 0
+    }
+}
+    return newArr
+}
+
+const createMap = (starterArray) => {
+    let starterObject = {}
+    for(let i = 0; i < starterArray.length; i++){
+        if(!starterObject[starterArray[i]]){
+            starterObject[starterArray[i]]={}
         }
-
-    }
+        if(!starterObject[starterArray[i]][starterArray[i+1]]){
+            starterObject[starterArray[i]][starterArray[i+1]] = 1
+        }else{
+            starterObject[starterArray[i]][starterArray[i+1]]++;
+        }
+}
+return starterObject
 }
 
+let bookArray = createBookArray();
+let freqMap = createMap(bookArray)
 
-
-let freqMap = {};
-
-const createMap = (starterObject) => {
-    for(let i = 0; i < newText.length; i++){
-        if(newText[i] === " "){
-            if(!newArr.includes(newText.substring(0, i))){
-                starterObject[newText.substring(0, i)] = {}
-                newText = newText.substring(i+1)
-                i = 0
-            }else{
-                newText = newText.substring(i+1)
-                i = 0
-            }
-
-    }
-}
-
-
-console.log("all I do is win", newText, newArr);
+console.log("all I do is win", bookArray, uniqueArray, freqMap);
 
 
