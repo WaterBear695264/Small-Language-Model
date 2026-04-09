@@ -7,6 +7,12 @@ newText = newText.replace(/[A-Z]/g, (match) => {
     return match.toLowerCase()
 })
 
+function getRandomInt(min, max) {
+  const minCeiled = Math.ceil(min);
+  const maxFloored = Math.floor(max);
+  return Math.floor(Math.random() * (maxFloored - minCeiled) + minCeiled); // The maximum is exclusive and the minimum is inclusive
+}
+
 const createBookArray = () => {
     let newArr = []
     for(let i = 0; i < newText.length; i++){
@@ -34,9 +40,29 @@ const createMap = (starterArray) => {
 return starterObject
 }
 
+const makeSentance = (starterWord, freqMap, length) => {
+    console.log("lebronnnnn", starterWord)
+    let keyArr = Object.keys(starterWord);
+    let weightedArr = []
+    for(let i = 0; i < keyArr.length; i++){
+        for(let j = 0; j < starterWord[keyArr[i]]; j++){
+            weightedArr.push(keyArr[i])
+        }
+    } 
+    let randy = getRandomInt(0, weightedArr.length+1) 
+    if(length === 0){
+        console.log("terminator")
+        return ""
+    }else{
+        console.log()
+        return weightedArr[randy] + " " + makeSentance(freqMap[weightedArr[randy]], length-1)
+    }
+}
+
 let bookArray = createBookArray();
 let freqMap = createMap(bookArray)
+let sentance = makeSentance(freqMap["book"], freqMap, 7)
 
-console.log("all I do is win", bookArray, uniqueArray, freqMap);
+console.log("all I do is win", bookArray, freqMap, "asdf", freqMap["book"]);
 
 
