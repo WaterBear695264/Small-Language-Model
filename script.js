@@ -1,4 +1,4 @@
-const response = await fetch('testFile.txt');
+const response = await fetch('slumber.txt');
 const text = await response.text();
 let newText = text.replace(/[{}();|<>~,!?@#$%^&*.:_—]/g, "");
 newText = newText.replace(/\n/g, " ")
@@ -41,28 +41,29 @@ return starterObject
 }
 
 const makeSentance = (starterWord, freqMap, length) => {
-    console.log("lebronnnnn", starterWord)
-    let keyArr = Object.keys(starterWord);
+    let keyArr = Object.keys(freqMap[starterWord]);
     let weightedArr = []
     for(let i = 0; i < keyArr.length; i++){
-        for(let j = 0; j < starterWord[keyArr[i]]; j++){
+        for(let j = 0; j < freqMap[starterWord][keyArr[i]]; j++){
             weightedArr.push(keyArr[i])
         }
     } 
-    let randy = getRandomInt(0, weightedArr.length+1) 
+    let randy = getRandomInt(0, weightedArr.length) 
     if(length === 0){
-        console.log("terminator")
         return ""
     }else{
-        console.log()
-        return weightedArr[randy] + " " + makeSentance(freqMap[weightedArr[randy]], length-1)
+        return weightedArr[randy] + " " + makeSentance(weightedArr[randy], freqMap, length-1)
     }
+}
+
+const makeSentanceFixed = (starterWord, freqMap, length) => {
+    return starterWord + " " + makeSentance(starterWord, freqMap, length);
 }
 
 let bookArray = createBookArray();
 let freqMap = createMap(bookArray)
-let sentance = makeSentance(freqMap["book"], freqMap, 7)
+let sentance = makeSentanceFixed("snoze", freqMap, 100)
 
-console.log("all I do is win", bookArray, freqMap, "asdf", freqMap["book"]);
+console.log(sentance);
 
 
