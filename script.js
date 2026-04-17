@@ -1,5 +1,6 @@
-const response = await fetch('slumber.txt');
+const response = await fetch('yunoMiles.txt');
 const text = await response.text();
+const finalText = document.getElementById("final")
 let newText = text.replace(/[{}();|<>~,!?@#$%^&*.:_—]/g, "");
 newText = newText.replace(/\n/g, " ")
 newText = newText.replace(/\s\s+/g, ' ');
@@ -62,8 +63,8 @@ const makeSentanceFixed = (starterWord, freqMap, length) => {
 
 let bookArray = createBookArray();
 let freqMap = createMap(bookArray)
-let sentance = makeSentanceFixed("snoze", freqMap, 100)
+let sentance = makeSentanceFixed("you", freqMap, 100)
 
-console.log(sentance);
+finalText.innerHTML = sentance;
 
 
