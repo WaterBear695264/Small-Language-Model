@@ -1,4 +1,4 @@
-const response = await fetch('yunoMiles.txt');
+const response = await fetch('testFile.txt');
 const text = await response.text();
 const finalText = document.getElementById("final")
 let newText = text.replace(/[{}();|<>~,!?@#$%^&*.:_—]/g, "");
