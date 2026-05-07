@@ -1,6 +1,9 @@
 const response = await fetch('testFile.txt');
 const text = await response.text();
 const finalText = document.getElementById("final")
+const btn = document.getElementById('button');
+const emailBox = document.getElementById('input')
+
 let newText = text.replace(/[{}();|<>~,!?@#$%^&*.:_—]/g, "");
 newText = newText.replace(/\n/g, " ")
 newText = newText.replace(/\s\s+/g, ' ');
@@ -63,8 +66,11 @@ const makeSentanceFixed = (starterWord, freqMap, length) => {
 
 let bookArray = createBookArray();
 let freqMap = createMap(bookArray)
-let sentance = makeSentanceFixed("you", freqMap, 100)
+btn.addEventListener('click', function() {
+    let sentance = makeSentanceFixed(emailBox.value, freqMap, 100)
+    emailBox.value = ""
+    finalText.innerHTML = sentance;
+});
 
-finalText.innerHTML = sentance;
 
 
