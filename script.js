@@ -45,19 +45,23 @@ return starterObject
 }
 
 const makeSentance = (starterWord, freqMap, length) => {
-    let keyArr = Object.keys(freqMap[starterWord]);
-    let weightedArr = []
-    for(let i = 0; i < keyArr.length; i++){
-        for(let j = 0; j < freqMap[starterWord][keyArr[i]]; j++){
-            weightedArr.push(keyArr[i])
+    if(freqMap[starterWord]){
+        let keyArr = Object.keys(freqMap[starterWord]);
+        let weightedArr = []
+        for(let i = 0; i < keyArr.length; i++){
+            for(let j = 0; j < freqMap[starterWord][keyArr[i]]; j++){
+                weightedArr.push(keyArr[i])
+            }
+        } 
+        let randy = getRandomInt(0, weightedArr.length) 
+        if(length === 0){
+            return ""
+        }else{
+            return weightedArr[randy] + " " + makeSentance(weightedArr[randy], freqMap, length-1)
         }
-    } 
-    let randy = getRandomInt(0, weightedArr.length) 
-    if(length === 0){
-        return ""
-    }else{
-        return weightedArr[randy] + " " + makeSentance(weightedArr[randy], freqMap, length-1)
-    }
+}else{
+    return ": is not a word, try another word, this word either has upppercase letters or is not in the text"
+}
 }
 
 const makeSentanceFixed = (starterWord, freqMap, length) => {
